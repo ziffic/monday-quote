@@ -3,24 +3,24 @@ import connect
 import datetime as dt
 import random
 
-my_email = connect.account_email
-password = connect.account_password
+my_email = connect.ACCOUNT_EMAIL
+password = connect.ACCOUNT_PASSWORD
 
-date_to_send = dt.date(2023, 3, 23)
-
-with open("quotes.txt", "r") as quotes:
-    lines = quotes.readlines()
-
-daily_quote = random.choice(lines)
-
+now = dt.datetime.now()
+weekday = now.weekday()
 
 # Check if today matches the day to send message
-if date_to_send == dt.date.today():
+if weekday == 3:
+    with open("quotes.txt", "r") as quote_file:
+        all_quotes = quote_file.readlines()
+        quote = random.choice(all_quotes)
+
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
-        connection.login(user=my_email, password=password)
+        connection.login(my_email, password)
         connection.sendmail(from_addr=my_email,
                             to_addrs="dave@dryweb.com",
-                            msg=f"Subject: Hello\n\n{daily_quote}")
+                            msg=f"Subject: Monday Motivation\n\n{quote}"
+                            )
 
 connection.close()
