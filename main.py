@@ -19,7 +19,7 @@ if weekday == 0:
         connection.starttls()
         connection.login(my_email, password)
         connection.sendmail(from_addr=my_email,
-                            to_addrs="dave@dryweb.com",
+                            to_addrs=connect.SENT_TO,
                             msg=f"Subject: Monday Motivation\n\n{quote}"
                             )
 
