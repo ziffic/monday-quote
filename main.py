@@ -10,7 +10,7 @@ now = dt.datetime.now()
 weekday = now.weekday()
 
 # Check if today matches the day to send message
-if weekday == 3:
+if weekday == 0:
     with open("quotes.txt", "r") as quote_file:
         all_quotes = quote_file.readlines()
         quote = random.choice(all_quotes)
@@ -23,4 +23,4 @@ if weekday == 3:
                             msg=f"Subject: Monday Motivation\n\n{quote}"
                             )
 
-connection.close()
+    connection.close()
